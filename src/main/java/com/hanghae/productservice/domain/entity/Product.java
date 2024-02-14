@@ -1,5 +1,6 @@
 package com.hanghae.productservice.domain.entity;
 
+import com.hanghae.productservice.domain.constant.ProductType;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -25,24 +26,30 @@ public class Product {
     @Column(nullable = false)
     private Integer stock;
 
-    @Column(nullable = false)
-    private Boolean reservation;
+    @Enumerated(EnumType.STRING)
+    private ProductType productType;
 
     protected Product() {
 
     }
 
-    private Product(String name, Integer price, String description, Integer stock, Boolean reservation) {
+    private Product(String name, Integer price, String description, Integer stock, ProductType productType) {
         this.name = name;
         this.price = price;
         this.description = description;
         this.stock = stock;
-        this.reservation = reservation;
+        this.productType = productType;
     }
 
-    public static Product of(String name, Integer price, String description, Integer stock, Boolean reservation) {
-        return new Product(name, price, description, stock, reservation);
+    public static Product of(String name, Integer price, String description, Integer stock, ProductType productType) {
+        return new Product(name, price, description, stock, productType);
     }
+
+    public void removeStock() {
+        this.stock -= 1;
+    }
+
+    public void addStock() { this.stock += 1; }
 }
 
 

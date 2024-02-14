@@ -1,6 +1,7 @@
 package com.hanghae.productservice.service;
 
 import com.hanghae.productservice.domain.constant.ErrorCode;
+import com.hanghae.productservice.domain.constant.ProductType;
 import com.hanghae.productservice.domain.entity.Product;
 import com.hanghae.productservice.domain.repository.ProductRepository;
 import com.hanghae.productservice.controller.dto.ProductDetailDto;
@@ -27,6 +28,14 @@ public class ProductService {
                 .collect(Collectors.toList());
     }
 
+    public List<ProductDto> viewProductType(ProductType productType) {
+        List<Product> products = productRepository.findByProductType(productType);
+
+        return products.stream()
+                .map(ProductDto::from)
+                .collect(Collectors.toList());
+    }
+
     public ProductDetailDto viewProductDetail(Long productId) {
         Product product = productRepository.findById(productId)
                 .orElseThrow(() -> new ProductServiceApplicationException(ErrorCode.PRODUCT_NOT_FOUND));
@@ -39,5 +48,9 @@ public class ProductService {
                 .orElseThrow(() -> new ProductServiceApplicationException(ErrorCode.PRODUCT_NOT_FOUND));
 
         return ProductStockDto.from(product);
+    }
+
+    public void enrollProduct(String name, Integer price, String description, Integer stock, ProductType productType) {
+        productRepository.save(Product.of(name, price, description, stock, productType));
     }
 }
