@@ -1,5 +1,6 @@
 package com.hanghae.productservice.controller.dto;
 
+import com.hanghae.productservice.domain.constant.ProductType;
 import com.hanghae.productservice.domain.entity.Product;
 
 public record ProductDto(
@@ -12,7 +13,7 @@ public record ProductDto(
 
     String description,
 
-    Boolean reservation
+    ProductType productType
 ) {
 
     public static ProductDto from(Product entity) {
@@ -21,7 +22,7 @@ public record ProductDto(
                entity.getName(),
                entity.getPrice(),
                entity.getDescription(),
-               entity.getReservation()
+               entity.getProductType()
        );
     }
 }
