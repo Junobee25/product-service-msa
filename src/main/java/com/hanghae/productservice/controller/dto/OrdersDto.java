@@ -1,5 +1,6 @@
 package com.hanghae.productservice.controller.dto;
 
+import com.hanghae.productservice.domain.constant.OrderStatus;
 import com.hanghae.productservice.domain.entity.Orders;
 
 public record OrdersDto(
@@ -10,7 +11,7 @@ public record OrdersDto(
 
     Long productId,
 
-    Boolean orderStatus
+    OrderStatus orderStatus
 ) {
 
     public static OrdersDto from(Orders entity) {
