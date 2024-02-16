@@ -18,4 +18,16 @@ public class PaymentController {
         paymentService.entryPayment(headers);
         return Response.success();
     }
+
+    @PostMapping("/payment")
+    public Response<Void> payment(@RequestHeader HttpHeaders headers) {
+        paymentService.processPayment(headers);
+        return Response.success();
+    }
+
+    @PostMapping("/cancel")
+    public Response<Void> cancel(@RequestHeader HttpHeaders headers) {
+        paymentService.cancel(headers);
+        return Response.success();
+    }
 }
