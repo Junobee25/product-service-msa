@@ -38,8 +38,4 @@ public class Orders {
     public static Orders of(Long userId, Product product, OrderStatus orderStatus) {
         return new Orders(userId, product, orderStatus);
     }
-
-    public void cancel() {
-        getProduct().addStock();
-    }
 }
